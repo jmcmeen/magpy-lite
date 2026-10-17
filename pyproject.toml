@@ -1,0 +1,100 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "magpy-lite"
+dynamic = ["version"]
+authors = [
+  { name="John McMeen", email="johnmcmeen@gmail.com" },
+]
+description = "Terminal interface for the bioamla bioacoustics toolkit"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+keywords = ["bioacoustics", "audio", "tui", "terminal", "textual", "bioamla"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Sound/Audio :: Analysis",
+    "Topic :: Scientific/Engineering",
+]
+
+# magpy-lite is a terminal front end for bioamla. 0.1.0 is a placeholder
+# release; bioamla itself becomes a dependency once the first real screen
+# calls into it.
+dependencies = [
+    "textual>=3.0",
+]
+
+[project.scripts]
+magpy-lite = "magpy_lite.app:main"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0",
+  "pytest-cov",
+  "ruff>=0.17,<0.18",  # pinned: minor releases change formatting; upgrade on purpose
+]
+
+[project.urls]
+Homepage = "https://github.com/jmcmeen/magpy-lite"
+Source = "https://github.com/jmcmeen/magpy-lite"
+Changelog = "https://github.com/jmcmeen/magpy-lite/blob/main/CHANGELOG.md"
+"Bug Tracker" = "https://github.com/jmcmeen/magpy-lite/issues"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/magpy_lite"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+  "--tb=short",
+  "--strict-markers",
+]
+markers = [
+  "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+  "integration: marks tests as integration tests",
+]
+
+[tool.coverage.run]
+source = ["src/magpy_lite"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+  "E",      # pycodestyle errors
+  "W",      # pycodestyle warnings
+  "F",      # Pyflakes
+  "I",      # isort
+  "B",      # flake8-bugbear
+  "C4",     # flake8-comprehensions
+  "UP",     # pyupgrade
+]
+ignore = [
+  "E501",   # line too long (handled by formatter)
+  "B008",   # do not perform function calls in argument defaults
+  "C901",   # too complex
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011", "E402"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["magpy_lite"]
