@@ -18,9 +18,9 @@ screens that haven't been asked for.
 - **The user handles all commits.** Make changes in the working tree and stop
   there. Do not run `git commit`, and do not offer to, unless asked. Branching
   and pushing likewise only on request. Work happens on `dev`; `main` releases.
-- Tooling (`Makefile`, CI, release workflow, ruff config) follows the laborae
-  workspace template; `make consistency` at the workspace root checks it. Don't
-  edit `.github/workflows/release.yml` or `.github/scripts/roll_changelog.py`
+- Tooling (`Makefile`, CI, release workflow, ruff config) follows a shared
+  template maintained outside this repo. Don't edit
+  `.github/workflows/release.yml` or `.github/scripts/roll_changelog.py`
   here; change the template instead.
 
 ## Commands
