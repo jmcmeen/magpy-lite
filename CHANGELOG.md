@@ -6,6 +6,8 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-10-27
+
 ### Added
 
 - CI tests and PyPI classifiers cover Python 3.14 and 3.15.
